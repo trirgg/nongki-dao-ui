@@ -3,6 +3,7 @@ import Layout from './components/layout/Layout'
 import Home from './pages/Home'
 import Warung from './pages/Warung'
 import WarungDetail from './pages/WarungDetail'
+import Profile from './pages/Profile'
 // import Events from './pages/Events'
 // import Dao from './pages/Dao'
 // import Profile from './pages/Profile'
@@ -15,9 +16,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/warung" element={<Warung />} />
         <Route path="/warung/:id" element={<WarungDetail />} />
+        <Route path="/profile" element={<Profile />} />
         {/* <Route path="/events" element={<Events />} />
         <Route path="/dao" element={<Dao />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </Layout>
