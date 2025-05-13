@@ -1,24 +1,240 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-background: #0F0F13;
-     --color-foreground: #FFFFFF;
-     --color-primary: #00FFAA;
-     --color-secondary: #FF3864;
-     --color-accent-blue: #2D7DFF;
-     --color-accent-purple: #7B61FF;
-     --color-accent-yellow: #FFD600;
-     --color-dark-default: #0F0F13;
-     --color-dark-light: #1A1A23;
-     --color-dark-medium: #25252F;
-     --color-dark-border: #2D2D3D;
-     --color-light-default: #FFFFFF;
-     --color-light-muted: #EBEBF0;
-     --color-light-gray: #9999A5;
-  
-     --gradient-primary: linear-gradient(to right, var(--color-primary), var(--color-accent-blue));
-     --gradient-secondary: linear-gradient(to right, var(--color-secondary), var(--color-accent-purple));
-  
-     --shadow-neon: 0 0 10px rgba(0, 255, 170, 0.5), 0 0 20px rgba(0, 255, 170, 0.3);
-     --shadow-neon-pink: 0 0 10px rgba(255, 56, 100, 0.5), 0 0 20px rgba(255, 56, 100, 0.3);
-};
+:root {
+  --background: #0f0f13;
+  --foreground: #ffffff;
+  --primary: #00ffaa;
+  --secondary: #ff3864;
+}
+
+body {
+  @apply bg-background text-foreground;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Gaya untuk scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-light;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-dark-border rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary bg-opacity-30;
+}
+
+/* Gaya untuk efek neon */
+.neon-text {
+  @apply text-primary;
+  text-shadow: 0 0 5px rgba(0, 255, 170, 0.5), 0 0 10px rgba(0, 255, 170, 0.3);
+}
+
+.neon-border {
+  @apply border border-primary;
+  box-shadow: 0 0 5px rgba(0, 255, 170, 0.5), 0 0 10px rgba(0, 255, 170, 0.3);
+}
+
+/* Gaya untuk tombol */
+.btn-primary {
+  @apply bg-primary text-dark font-medium px-4 py-2 rounded-lg hover:bg-primary-hover transition-all duration-200;
+}
+
+.btn-secondary {
+  @apply bg-secondary text-white font-medium px-4 py-2 rounded-lg hover:bg-secondary-hover transition-all duration-200;
+}
+
+.btn-outline {
+  @apply bg-transparent border border-primary text-primary font-medium px-4 py-2 rounded-lg hover:bg-primary hover:text-dark transition-all duration-200;
+}
+
+/* Gaya untuk card */
+.card {
+  @apply bg-dark-light border border-dark-border rounded-xl overflow-hidden;
+}
+
+/* Gaya untuk input */
+.input {
+  @apply bg-dark-medium border border-dark-border text-foreground rounded-lg px-4 py-2 focus:outline-none focus:border-primary;
+}
+
+/* Wallet Adapter Styles */
+.wallet-adapter-button {
+  background-color: #00ffaa;
+  border: none;
+  color: #0f0f13;
+  font-size: 16px;
+  font-weight: 600;
+  height: auto;
+  line-height: 1.2;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  background-color: #00e69a;
+}
+
+.wallet-adapter-button-trigger {
+  background-color: transparent;
+  border: 1px solid #00ffaa;
+  color: #00ffaa;
+}
+
+.wallet-adapter-button-trigger:not([disabled]):hover {
+  background-color: #00ffaa;
+  color: #0f0f13;
+}
+
+.wallet-adapter-button:not([disabled]):focus-visible {
+  outline-color: white;
+}
+
+.wallet-adapter-button[disabled] {
+  background: #404144;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.wallet-adapter-button-end-icon,
+.wallet-adapter-button-start-icon,
+.wallet-adapter-button-end-icon img,
+.wallet-adapter-button-start-icon img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.wallet-adapter-button-end-icon {
+  margin-left: 12px;
+}
+
+.wallet-adapter-button-start-icon {
+  margin-right: 12px;
+}
+
+.wallet-adapter-collapse {
+  width: 100%;
+}
+
+.wallet-adapter-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.wallet-adapter-dropdown-list {
+  position: absolute;
+  z-index: 99;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-row-gap: 10px;
+  padding: 10px;
+  top: 100%;
+  right: 0;
+  margin: 0;
+  list-style: none;
+  background: #1a1a23;
+  border: 1px solid #2d2d3d;
+  border-radius: 10px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms;
+  font-family: 'Inter', sans-serif;
+}
+
+.wallet-adapter-dropdown-list-active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(10px);
+}
+
+.wallet-adapter-dropdown-list-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 0 20px;
+  width: 100%;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  height: 37px;
+  color: #fff;
+}
+
+.wallet-adapter-dropdown-list-item:not([disabled]):hover {
+  background-color: #1a1f2e;
+}
+
+.wallet-adapter-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  overflow-y: auto;
+}
+
+.wallet-adapter-modal-container {
+  display: flex;
+  margin: 3rem;
+  min-height: calc(100vh - 6rem);
+  align-items: center;
+  justify-content: center;
+}
+
+.wallet-adapter-modal-wrapper {
+  max-width: 28rem;
+  width: 100%;
+  position: relative;
+  background: #1a1a23;
+  border: 1px solid #2d2d3d;
+  border-radius: 10px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.wallet-adapter-modal-wrapper .wallet-adapter-button {
+  width: 100%;
+}
+
+.wallet-adapter-modal-title {
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.75rem;
+  color: #fff;
+  margin: 0;
+  padding: 1.5rem 2rem 0;
+  text-align: center;
+}
+
+.wallet-adapter-modal-list {
+  margin: 1rem 0 1.5rem;
+  padding: 0 0.5rem;
+}
+
+.wallet-adapter-modal-list li:not(:first-of-type) {
+  margin-top: 0.5rem;
+}
